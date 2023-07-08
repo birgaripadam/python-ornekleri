@@ -1,6 +1,6 @@
 import os
 import time
-
+from colorama import Fore, Back, Style
 
 class bankaHesap:
     def __init__(self, hesap_no, bakiye):
@@ -19,7 +19,8 @@ class bankaHesap:
             self.bakiye -= soru
             os.system('cls')
             print(
-                f"{self.hesap_no} numaralı hesaptan {soru}₺ para çekildi yeni bakiyeniz {self.bakiye}")
+                f"{self.hesap_no} numaralı hesaptan {soru}₺ para çekildi yeni bakiyeniz {self.bakiye}₺")
+            time.sleep(2)
         else:
             os.system('cls')
             print(f"Yetersiz bakiye, ana menüye yönlendiriliyorsunuz...")
@@ -28,33 +29,34 @@ class bankaHesap:
     def hesap_durumu(self):
         print(f"{self.bakiye}₺")
 
-    def main(self):
+
+banka = bankaHesap("000001", 0)
+
+def main():
         os.system('cls')
         try:
             while True:
                 print(f"""
-                    Seçenekler
-     Bakiye: {self.bakiye}₺
-     Hesap No: {self.hesap_no}
+                    {Fore.MAGENTA}Seçenekler
+     {Fore.YELLOW}Bakiye: {banka.bakiye}₺
+     {Fore.RED}Hesap No: {banka.hesap_no}
 
-            1) Para Yatır
+            {Fore.GREEN}1) Para Yatır
             2) Para Çek
             0) Çıkış
             """)
-                soru = int(input("Lütfen bir seçenek seçiniz: "))
+                soru = int(input(Fore.BLUE + "Lütfen bir seçenek seçiniz: "))
                 if soru == 1:
-                    self.para_yatir()
+                    banka.para_yatir()
                 elif soru == 2:
-                    self.para_cek()
+                    banka.para_cek()
                 elif soru == 0:
                     break
                 else:
+                    os.system('cls')
                     print("Geçersiz seçenek!")
         except ValueError:
             print("hatalı tuşlama")
         except KeyboardInterrupt:
             print("")
-
-
-banka = bankaHesap("000001", 0)
-banka.main()
+main()
